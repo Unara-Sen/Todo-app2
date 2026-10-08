@@ -35,15 +35,22 @@ function toggleCompleted(index) {
   )
 }
 
+function deleteTodo(index) {
+  setTodos(
+    Todos.filter((todo, i) => i !== index) // behåll dem som inte har det berörda index
+  );
+}
+
 //Bara HTML nedanför.
   return (
-    <>  
+    <div className='container'>
+    
       <h1>My Todos</h1>
       
       <div>
         <form onSubmit={() => addTodo(e)}>
           <input value={InputValue} onChange={event => setInputValue(event.target.value)} type="text" />
-          <button onClick={addTodo}>Add todo</button>
+          <button className='todobutton' onClick={addTodo}>Add todo</button>
         </form>
       </div>
 
@@ -52,12 +59,13 @@ function toggleCompleted(index) {
       {Todos.map((todo, index) => (
         <div key={index} className='Row'>
           <p className={todo.isDone ? 'completed' : 'notCompleted'}>{todo.text}</p>
-          <button onClick={() => toggleCompleted(index)}>Toggle complete</button>
+          <button className='donebutton' onClick={() => toggleCompleted(index)}>Done</button>
+          <button className='removebutton' onClick={() => deleteTodo(index)}>Remove</button>
         </div>
       ))}
 
  
-    </>
+    </div> 
   )
 }
 
