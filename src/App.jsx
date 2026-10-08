@@ -9,12 +9,13 @@ function App() {
 
   function addTodo(e) { //Skapar en todo
     e.preventDefault(); //Så att inte sidan behöver ladda om vid submit event. 
+    if (!InputValue.trim()) return; //la till så att du inte lägga in tomma todos. 
     setTodos(
       [
         ...Todos, // inkludera alla befintliga todos
-        { text: InputValue, isDone: false }
+        { text: InputValue, isDone: false } //Lägger till den nya todon  
       ]
-    );
+    ); 
     setInputValue(""); // Rensar input fältet
   }
 
@@ -37,6 +38,7 @@ function deleteTodo(index) {
     Todos.filter((todo, i) => i !== index) // behåll dem som inte har det berörda index
   );
 }
+
 
 //Bara HTML nedanför.
   return (
