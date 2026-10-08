@@ -2,29 +2,38 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
+  const defaultValue = [
+    {text: "min första todo", isDone: false},
+    {text: "min andra todo", isDone: true}
+  ]
 
-  const [Todos, setTodos] = useState([]);
-  const [InputValue, setInputValue] = useState("");
+  const [Todos, setTodos] = useState(defaultValue); //Skapande av Todos state.
+  const [InputValue, setInputValue] = useState(""); //State för input fältet
 
-  function addTodo(e) {
-    e.preventDefault();
-    setTodos([...Todos, InputValue]);
-    setInputValue("")
+  function addTodo(e) { //Skapar en todo
+    e.preventDefault(); //Så att inte sidan behöver ladda om vid submit event. 
+    setTodos(
+      [
+        ...Todos, // inkludera alla befintliga todos
+        { text: InputValue, isDone: false }
+      ]
+    );
+    setInputValue(""); // Rensar input fältet
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+function toggleCompleted(index) {
+  setTodos(
+    Todos.map((todo, i) => {
+      if (i === index) { // ändra bara de todos som har samma index som skickades till funktionen
+        return {...todo, isDone: !todo.isDone};
+      } else {
+        return todo; // returnera todon som den är om det inte är det indexet som vi skickade till funktionen
+      }
+    }
+    )
+  )
+}
 
 //Bara HTML nedanför.
   return (
@@ -41,7 +50,10 @@ function App() {
 
 
       {Todos.map((todo, index) => (
-        <p key={index}>{todo}</p>
+        <div key={index} className='Row'>
+          <p className={todo.isDone ? 'completed' : 'notCompleted'}>{todo.text}</p>
+          <button onClick={() => toggleCompleted(index)}>Toggle complete</button>
+        </div>
       ))}
 
  
