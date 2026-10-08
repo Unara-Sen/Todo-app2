@@ -2,12 +2,9 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const defaultValue = [
-    {text: "min första todo", isDone: false},
-    {text: "min andra todo", isDone: true}
-  ]
 
-  const [Todos, setTodos] = useState(defaultValue); //Skapande av Todos state.
+
+  const [Todos, setTodos] = useState([]); //Skapande av Todos state.
   const [InputValue, setInputValue] = useState(""); //State för input fältet
 
   function addTodo(e) { //Skapar en todo
@@ -49,7 +46,7 @@ function deleteTodo(index) {
       
       <div>
         <form onSubmit={() => addTodo(e)}>
-          <input value={InputValue} onChange={event => setInputValue(event.target.value)} type="text" />
+          <input value={InputValue} onChange={event => setInputValue(event.target.value)} type="text" /> 
           <button className='todobutton' onClick={addTodo}>Add todo</button>
         </form>
       </div>
